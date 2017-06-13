@@ -69,5 +69,14 @@ nnoremap <F12>     :ShowSpaces 1<CR>
 nnoremap <S-F12>   m`:TrimSpaces<CR>``
 vnoremap <S-F12>   :TrimSpaces<CR>
 
-let g:airline_powerline_fonts = 1
-set guifont=DroidSansMonoForPowerline\ Nerd\ Font\ 12
+let g:airline_powerline_fonts=1
+if has("win32")
+    command -bar -nargs=0 SetGuiFont call GuiFont("DroidSansMonoForPowerline NF:h12:w8")
+
+    "TODO The command below doesn't work, but I want this damn font to load on
+    "windows!!!
+    "autocmd GuiEnter * GuiFont("DroidSansMonoForPowerline NF:h12:w8")
+else
+    set guifont=DroidSansMonoForPowerline\ Nerd\ Font\ 12
+endif
+
