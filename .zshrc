@@ -10,6 +10,7 @@ bindkey -v
 
 # Aliases
 alias ls='ls --color=auto -a'
+alias tmux='TERM=rxvt-unicode-256color tmux' # hack for getting colors
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=1000

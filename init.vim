@@ -6,10 +6,9 @@ filetype plugin indent on
 " Colors
 syntax enable           " enable syntax processing
 colorscheme badwolf
-set termguicolors
-"
+
 " Misc
-set guifont=DroidSansMonoForPowerlineNerdF-:h12
+set t_Co=256
 set encoding=utf8
 set backspace=indent,eol,start
 set list
@@ -69,5 +68,5 @@ nnoremap <F12>     :ShowSpaces 1<CR>
 nnoremap <S-F12>   m`:TrimSpaces<CR>``
 vnoremap <S-F12>   :TrimSpaces<CR>
 
-" required if using https://github.com/bling/vim-airline
-let g:airline_powerline_fonts=1
+let g:airline_powerline_fonts = 1
+set guifont=DroidSansMonoForPowerline\ Nerd\ Font\ 12
