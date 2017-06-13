@@ -1,13 +1,15 @@
 # Set up the prompt
-
 autoload -Uz promptinit
 promptinit
 prompt adam1
 
 setopt histignorealldups sharehistory
 
-# Use emacs keybindings even if our EDITOR is set to vi
-bindkey -e
+# Use vi keybindings
+bindkey -v
+
+# Aliases
+alias ls='ls --color=auto -a'
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=1000
