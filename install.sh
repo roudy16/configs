@@ -15,6 +15,7 @@ fi
 
 # copy config files
 cp "${DIR}/.bashrc" "${DSTDIR}/.bashrc"
+cp "${DIR}/.gitconfig" "${DSTDIR}/.gitconfig"
 cp "${DIR}/.tmux.conf" "${DSTDIR}/.tmux.conf"
 cp "${DIR}/.xinitrc" "${DSTDIR}/.xinitrc"
 cp "${DIR}/.Xresources" "${DSTDIR}/.Xresources"
