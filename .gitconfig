@@ -1,0 +1,18 @@
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[credential]
+	helper = "wincred "
+[user]
+	name = Steve Roudebush
+	email = roudy@umich.edu
+[url "https://github.com/roudy16/configs.git"]
+	pushInsteadOf = https://github.com/roudy16/configs.git
+[url "git@github.com/roudy16/configs.git"]
+	pushInsteadOf = git@github.com/roudy16/configs.git
+
+# This include path needed?
+#[include]
+#	path = C:\\Users\\PNTS00\\.adsk-git\\config.include
