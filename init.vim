@@ -46,6 +46,11 @@ set foldnestmax=10      " max 10 depth
 set foldenable          " don't fold files by default on open
 set foldlevelstart=10   " start with fold level of
 
+nnoremap <silent> [b :bprevious<CR>
+nnoremap <silent> ]b :bnext<CR>
+nnoremap <silent> [B :bfirst<CR>
+nnoremap <silent> ]B :blast<CR>
+
 function ShowSpaces(...)
     let @/='\v(\s+$)|( +\ze\t)'
     let oldhlsearch=&hlsearch
