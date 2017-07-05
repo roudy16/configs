@@ -46,6 +46,10 @@ set foldnestmax=10      " max 10 depth
 set foldenable          " don't fold files by default on open
 set foldlevelstart=10   " start with fold level of
 
+" enable hidden buffers, a modified buffer can be hidden without saving
+set hidden
+
+" File buffer nav shortcuts
 nnoremap <silent> [b :bprevious<CR>
 nnoremap <silent> ]b :bnext<CR>
 nnoremap <silent> [B :bfirst<CR>
