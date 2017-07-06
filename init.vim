@@ -72,7 +72,9 @@ nnoremap <F12>     :ShowSpaces 1<CR>
 nnoremap <S-F12>   m`:TrimSpaces<CR>``
 vnoremap <S-F12>   :TrimSpaces<CR>
 
+let g:workspace_powerline_separators=1
 let g:airline_powerline_fonts=1
+
 if has("win32")
     command -bar -nargs=0 SetGuiFont call GuiFont("DroidSansMonoForPowerline NF:h10:w6")
     autocmd GuiEnter * GuiFont("DroidSansMonoForPowerline NF:h10:w6")
