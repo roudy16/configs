@@ -73,6 +73,9 @@ nnoremap <S-F12>   m`:TrimSpaces<CR>``
 vnoremap <S-F12>   :TrimSpaces<CR>
 
 let g:workspace_powerline_separators=1
+let g:workspace_tab_icon = "\uf00a"
+let g:workspace_left_trunc_icon = "\uf0a8"
+let g:workspace_right_trunc_icon = "\uf0a9"
 let g:airline_powerline_fonts=1
 
 if has("win32")
