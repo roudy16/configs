@@ -49,12 +49,6 @@ set foldlevelstart=10   " start with fold level of
 " enable hidden buffers, a modified buffer can be hidden without saving
 set hidden
 
-" File buffer nav shortcuts
-nnoremap <silent> [b :bprevious<CR>
-nnoremap <silent> ]b :bnext<CR>
-nnoremap <silent> [B :bfirst<CR>
-nnoremap <silent> ]B :blast<CR>
-
 function ShowSpaces(...)
     let @/='\v(\s+$)|( +\ze\t)'
     let oldhlsearch=&hlsearch
