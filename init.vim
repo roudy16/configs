@@ -49,6 +49,9 @@ set foldlevelstart=10   " start with fold level of
 " enable hidden buffers, a modified buffer can be hidden without saving
 set hidden
 
+" Tag settings
+set tags=./tags;,tags;
+
 function ShowSpaces(...)
     let @/='\v(\s+$)|( +\ze\t)'
     let oldhlsearch=&hlsearch
