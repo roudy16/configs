@@ -31,7 +31,7 @@ set nocursorline        " highlight current line
 set wildmenu
 set lazyredraw
 set showmatch           " higlight matching parenthesis
-set fillchars+=vert:\|
+set fillchars+=vert:\│
 "
 " Searching
 set ignorecase          " ignore case when searching
