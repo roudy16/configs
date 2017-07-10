@@ -1,5 +1,5 @@
 [core]
-	autocrlf = true
+	autocrlf = false
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -20,3 +20,5 @@
 	pushInsteadOf = https://github.com:roudy16/java_prac.git
 [url "git@github.com:roudy16/java_prac.git"]
 	pushInsteadOf = git@github.com:roudy16/java_prac.git
+[push]
+	default = simple
