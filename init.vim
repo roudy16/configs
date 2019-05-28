@@ -80,6 +80,22 @@ let g:workspace_tab_icon = "\uf00a"
 let g:workspace_left_trunc_icon = "\uf0a8"
 let g:workspace_right_trunc_icon = "\uf0a9"
 let g:airline_powerline_fonts=1
+let g:airline#extensions#tabline#enabled=1
+
+" Enable block cursor in cygwin
+if exists('$TMUX')
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
+else
+    let &t_SI = "\e[5 q"
+    let &t_EI = "\e[2 q"
+endif
+
+" CtrlP
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " Linux/MacOSX
+"set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
 
 if has("win32")
     command -bar -nargs=0 SetGuiFont call GuiFont("DroidSansMonoForPowerline NF:h10:w6")
