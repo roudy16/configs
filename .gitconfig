@@ -1,25 +1,27 @@
 [core]
 	autocrlf = false
 	longpaths = true
+
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+
 [user]
 	name = Steve Roudebush
 	email = roudy@umich.edu
+
+[push]
+	default = simple
+
 [url "https://github.com/roudy16/configs.git"]
 	pushInsteadOf = https://github.com/roudy16/configs.git
 [url "git@github.com/roudy16/configs.git"]
 	pushInsteadOf = git@github.com/roudy16/configs.git
 
-# This include path needed?
-#[include]
-#	path = C:\\Users\\PNTS00\\.adsk-git\\config.include
 [url "https://github.com:roudy16/java_prac.git"]
 	pushInsteadOf = https://github.com:roudy16/java_prac.git
 [url "git@github.com:roudy16/java_prac.git"]
 	pushInsteadOf = git@github.com:roudy16/java_prac.git
-[push]
-	default = simple
+
