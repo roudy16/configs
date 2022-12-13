@@ -2,9 +2,21 @@ local Plug = vim.fn['plug#']
 
 vim.call('plug#begin', '~/.config/nvim/plugged')
   Plug 'neovim/nvim-lspconfig'
-  Plug 'nvim-tree/nvim-web-devicons'
+  Plug 'williamboman/mason.nvim'
+  Plug 'williamboman/mason-lspconfig.nvim'
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/cmp-path'
+  Plug 'hrsh7th/cmp-cmdline'
+  Plug 'hrsh7th/nvim-cmp'
+  Plug 'hrsh7th/cmp-vsnip' -- For vsnip users.
+  Plug 'hrsh7th/vim-vsnip' -- For vsnip users.
+  Plug 'simrat39/rust-tools.nvim'
   Plug 'nvim-lualine/lualine.nvim'
+  Plug 'nvim-tree/nvim-web-devicons'
   Plug 'nvim-tree/nvim-tree.lua'
+  Plug 'nvim-treesitter/nvim-treesitter'
+  Plug 'cloudhead/neovim-fuzzy'
   Plug 'dracula/vim'
 vim.call('plug#end')
 
@@ -21,8 +33,41 @@ require('nvim-tree').setup({
     update_cwd = true,
   },
 })
+require'nvim-treesitter.configs'.setup {
+  -- A list of parser names, or "all"
+  ensure_installed = { "c", "lua", "rust" },
+
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
+
+  -- Automatically install missing parsers when entering buffer
+  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+  auto_install = true,
+
+  -- List of parsers to ignore installing (for "all")
+  ignore_install = { "javascript" },
+
+  highlight = {
+    -- `false` will disable the whole extension
+    enable = false,
+
+    -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
+    -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
+    -- the name of the parser)
+    -- list of language that will be disabled
+    disable = { "c", "rust" },
+
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
 
 -- LSP configuation
+require('mason').setup({})
+require('mason-lspconfig').setup({})
 require('lspconfig').tsserver.setup({})
 require('lspconfig').sumneko_lua.setup({
   settings = {
@@ -46,11 +91,37 @@ require('lspconfig').sumneko_lua.setup({
     },
   },
 })
-
+local cmp = require('cmp')
+cmp.setup({
+  snippet = {
+    -- REQUIRED - you must specify a snippet engine
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body)
+    end,
+  },
+  window = {
+    -- completion = cmp.config.window.bordered(),
+    -- documentation = cmp.config.window.bordered(),
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+  }),
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'vsnip' }, -- For vsnip users.
+  }, {
+    { name = 'buffer' },
+  })
+})
+require('rust-tools').setup({})
 -- Bindings
 vim.g.mapleader = ' '
 
-function map(mode, lhs, rhs, opts)
+local function map(mode, lhs, rhs, opts)
   local options = { noremap = true }
   if opts then
     options = vim.tbl_extend("force", options, opts)
@@ -59,6 +130,7 @@ function map(mode, lhs, rhs, opts)
 end
 
 map("n", "<Leader>e", ":NvimTreeFocus<CR>")
+map("n", "<C-p>", ":FuzzyOpen<CR>")
 
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   pattern = { "*" },
@@ -108,16 +180,22 @@ set hlsearch            " highlight all matches
 "
 " Folding
 "=== folding ===
-set foldmethod=manual   " fold manually
+"set foldmethod=manual   " fold manually
 "set foldmethod=indent   " fold based on indent level
+"set foldmethod=syntax   " fold based on syntax
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
 set foldnestmax=10      " max 10 depth
 set foldenable          " don't fold files by default on open
 set foldlevelstart=10   " start with fold level of
+set nofoldenable                     " Disable folding at startup.
 
 " enable hidden buffers, a modified buffer can be hidden without saving
 set hidden
 
 " Tag settings
 set tags=./tags;,tags;
-]]
 
+" fixes 'no hg' problem with the neovim-fuzzy plugin
+let g:fuzzy_rootcmds = [ ["git", "rev-parse", "--show-toplevel"] ]
+]]
