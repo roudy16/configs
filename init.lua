@@ -1,7 +1,8 @@
 local Plug = vim.fn['plug#']
 
 vim.call('plug#begin', '~/.config/nvim/plugged')
-  Plug 'nvim-tree/nvim-web-devicons' 
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'nvim-tree/nvim-web-devicons'
   Plug 'nvim-lualine/lualine.nvim'
   Plug 'nvim-tree/nvim-tree.lua'
   Plug 'dracula/vim'
@@ -13,7 +14,7 @@ vim.g.loaded_netrwPlugin = 1
 -- set termguicolors to enable highlight groups
 vim.opt.termguicolors = true
 
-require('lualine').setup()
+require('lualine').setup({})
 require('nvim-tree').setup({
   update_focused_file = {
     enable = true,
@@ -21,6 +22,50 @@ require('nvim-tree').setup({
   },
 })
 
+-- LSP configuation
+require('lspconfig').tsserver.setup({})
+require('lspconfig').sumneko_lua.setup({
+  settings = {
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = "LuaJIT",
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = { "vim" },
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+})
+
+-- Bindings
+vim.g.mapleader = ' '
+
+function map(mode, lhs, rhs, opts)
+  local options = { noremap = true }
+  if opts then
+    options = vim.tbl_extend("force", options, opts)
+  end
+  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+end
+
+map("n", "<Leader>e", ":NvimTreeFocus<CR>")
+
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+  pattern = { "*" },
+  command = [[%s/\s\+$//e]],
+})
+
+-- Old-school vim config TODO: convert to lua
 vim.cmd [[
 set nocompatible            " disable compatibility to old-time vi
 
@@ -75,3 +120,4 @@ set hidden
 " Tag settings
 set tags=./tags;,tags;
 ]]
+
