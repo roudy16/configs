@@ -13,6 +13,7 @@ vim.call('plug#begin', '~/.config/nvim/plugged')
   Plug 'hrsh7th/vim-vsnip' -- For vsnip users.
   Plug 'simrat39/rust-tools.nvim'
   Plug 'nvim-lualine/lualine.nvim'
+  Plug 'romgrk/barbar.nvim'
   Plug 'nvim-tree/nvim-web-devicons'
   Plug 'nvim-tree/nvim-tree.lua'
   Plug 'nvim-treesitter/nvim-treesitter'
@@ -131,6 +132,51 @@ end
 
 map("n", "<Leader>e", ":NvimTreeFocus<CR>")
 map("n", "<C-p>", ":FuzzyOpen<CR>")
+
+-- BEGIN barbar config
+local barbar_binding_opts = { noremap = true, silent = true }
+
+-- Move to previous/next
+map('n', '<C-h>', '<Cmd>BufferPrevious<CR>', barbar_binding_opts)
+map('n', '<C-l>', '<Cmd>BufferNext<CR>', barbar_binding_opts)
+-- Re-order to previous/next
+map('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>', barbar_binding_opts)
+map('n', '<A->>', '<Cmd>BufferMoveNext<CR>', barbar_binding_opts)
+-- Goto buffer in position...
+map('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', barbar_binding_opts)
+map('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', barbar_binding_opts)
+map('n', '<A-3>', '<Cmd>BufferGoto 3<CR>', barbar_binding_opts)
+map('n', '<A-4>', '<Cmd>BufferGoto 4<CR>', barbar_binding_opts)
+map('n', '<A-5>', '<Cmd>BufferGoto 5<CR>', barbar_binding_opts)
+map('n', '<A-6>', '<Cmd>BufferGoto 6<CR>', barbar_binding_opts)
+map('n', '<A-7>', '<Cmd>BufferGoto 7<CR>', barbar_binding_opts)
+map('n', '<A-8>', '<Cmd>BufferGoto 8<CR>', barbar_binding_opts)
+map('n', '<A-9>', '<Cmd>BufferGoto 9<CR>', barbar_binding_opts)
+map('n', '<A-0>', '<Cmd>BufferLast<CR>', barbar_binding_opts)
+-- Pin/unpin buffer
+map('n', '<A-p>', '<Cmd>BufferPin<CR>', barbar_binding_opts)
+-- Close buffer
+map('n', '<Leader>c', '<Cmd>BufferClose<CR>', barbar_binding_opts)
+-- Wipeout buffer
+--                 :BufferWipeout
+-- Close commands
+--                 :BufferCloseAllButCurrent
+--                 :BufferCloseAllButPinned
+--                 :BufferCloseAllButCurrentOrPinned
+--                 :BufferCloseBuffersLeft
+--                 :BufferCloseBuffersRight
+-- Magic buffer-picking mode
+map('n', '<C-p>', '<Cmd>BufferPick<CR>', barbar_binding_opts)
+-- Sort automatically by...
+map('n', '<Space>bb', '<Cmd>BufferOrderByBufferNumber<CR>', barbar_binding_opts)
+map('n', '<Space>bd', '<Cmd>BufferOrderByDirectory<CR>', barbar_binding_opts)
+map('n', '<Space>bl', '<Cmd>BufferOrderByLanguage<CR>', barbar_binding_opts)
+map('n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', barbar_binding_opts)
+
+-- Other:
+-- :BarbarEnable - enables barbar (enabled by default)
+-- :BarbarDisable - very bad command, should never be used
+-- END barbar config
 
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   pattern = { "*" },
