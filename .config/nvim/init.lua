@@ -20,6 +20,7 @@ vim.call('plug#begin', '~/.config/nvim/plugged')
   Plug 'nvim-tree/nvim-tree.lua'
   Plug 'nvim-treesitter/nvim-treesitter'
   Plug 'dracula/vim'
+  Plug 'navarasu/onedark.nvim'
 vim.call('plug#end')
 
 require('lsp')
@@ -30,16 +31,18 @@ vim.g.loaded_netrwPlugin = 1
 -- set termguicolors to enable highlight groups
 vim.opt.termguicolors = true
 
+require('onedark').load()
+
 require('lualine').setup({})
 require('nvim-tree').setup({
   update_focused_file = {
     enable = true,
-    update_cwd = true,
+    update_cwd = false,
   },
 })
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
-  ensure_installed = { "c", "lua", "rust" },
+  ensure_installed = { "c", "lua", "toml", "rust", "yaml" },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -53,13 +56,13 @@ require'nvim-treesitter.configs'.setup {
 
   highlight = {
     -- `false` will disable the whole extension
-    enable = false,
+    enable = true,
 
     -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
     -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
     -- the name of the parser)
     -- list of language that will be disabled
-    disable = { "c", "rust" },
+    -- disable = { "c", "rust" },
 
     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
@@ -98,7 +101,7 @@ set nocompatible            " disable compatibility to old-time vi
 filetype plugin indent on
 
 syntax enable           " enable syntax processing
-colorscheme dracula
+"colorscheme dracula
 "colorscheme badwolf
 
 " Misc
@@ -153,3 +156,4 @@ set tags=./tags;,tags;
 " fixes 'no hg' problem with the neovim-fuzzy plugin
 let g:fuzzy_rootcmds = [ ["git", "rev-parse", "--show-toplevel"] ]
 ]]
+
