@@ -21,6 +21,7 @@ vim.call('plug#begin', '~/.config/nvim/plugged')
   Plug 'nvim-treesitter/nvim-treesitter'
   Plug 'dracula/vim'
   Plug 'navarasu/onedark.nvim'
+  Plug 'vimwiki/vimwiki'
 vim.call('plug#end')
 
 require('lsp')
@@ -30,6 +31,23 @@ vim.g.loaded_netrwPlugin = 1
 
 -- set termguicolors to enable highlight groups
 vim.opt.termguicolors = true
+
+-- vimwiki config
+vim.g.vimwiki_list = {
+  {
+    path = '~/workspace/roudy16/journalings/wiki/src/',
+    path_html = '~/workspace/roudy16/journalings/wiki/site_html/',
+    html_filename_parameterization = 1,
+    custom_wiki2html = 'vimwiki_markdown',
+    template_path = '~/workspace/roudy16/journalings/wiki/templates/',
+    template_ext = '.tpl',
+    template_default = 'default',
+    syntax = 'markdown',
+    ext = '.md',
+  }
+}
+-- limit Vimwiki's operation to only markdown files in the vimwiki_list paths
+vim.g.vimwiki_global_ext = 0
 
 require('onedark').load()
 
