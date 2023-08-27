@@ -1,3 +1,5 @@
+# windows: C:/Users/<user>/AppData/Roaming/alacritty/alacritty.yml
+
 shell:
   program: C:/cygwin64/bin/zsh
   args:
