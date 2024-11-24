@@ -1,8 +1,8 @@
 -- LSP configuation
 require('mason').setup({})
 require('mason-lspconfig').setup({})
-require('lspconfig').tsserver.setup({})
-require('lspconfig').sumneko_lua.setup({
+require('lspconfig').ts_ls.setup({})
+require('lspconfig').lua_ls.setup({
   settings = {
     Lua = {
       runtime = {
