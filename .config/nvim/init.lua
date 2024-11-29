@@ -29,8 +29,25 @@ require('lsp')
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+-- clipboard
+vim.g.clipboard = {
+  name = 'WslClipboard',
+  copy = {
+    ["+"] = 'clip.exe',
+    ["*"] = 'clip.exe',
+  },
+  paste = {
+    ["+"] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+    ["*"] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+ },
+  cache_enabled = 0,
+}
+
 -- set termguicolors to enable highlight groups
 vim.opt.termguicolors = true
+
+-- disable line wrap
+vim.opt.wrap = false
 
 -- vimwiki config
 vim.g.vimwiki_list = {
@@ -127,7 +144,7 @@ set t_Co=256
 set encoding=utf8
 set backspace=indent,eol,start
 set list
-set listchars=tab:>-,trail:~
+set listchars=tab:·┈,trail:~,multispace:\ ,lead:\ ,extends:▶,precedes:◀,nbsp:‿
 "
 " Spaces & Tabs
 set tabstop=4           " 4 space tab

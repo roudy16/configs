@@ -1,0 +1,24 @@
+[general]
+working_directory = "C:/Users/roudy"
+
+[colors.primary]
+background = "#1d1f21"
+foreground = "#c5c8c6"
+
+[font]
+size = 11.0
+glyph_offset = { x = 0, y = 0 }
+
+[font.normal]
+family = "SauceCodePro NF"
+
+[[mouse.bindings]]
+action = "PasteSelection"
+mouse = "Right"
+
+[selection]
+save_to_clipboard = true
+
+[terminal.shell]
+args = ["--cd", "~"]
+program = "wsl"
