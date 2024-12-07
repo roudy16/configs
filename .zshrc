@@ -72,6 +72,9 @@ ZSH_THEME="robbyrussell"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
+export LC_ALL=en_IN.UTF-8
+export LANG=en_IN.UTF-8
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -85,15 +88,18 @@ source $ZSH/oh-my-zsh.sh
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
-#   export EDITOR='mvim'
+#   export EDITOR='nvim'
 # fi
 
 # Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+# export ARCHFLAGS="-arch $(uname -m)"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# Set personal aliases, overriding those provided by Oh My Zsh libs,
+# plugins, and themes. Aliases can be placed here, though Oh My Zsh
+# users are encouraged to define aliases within a top-level file in
+# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
+# - $ZSH_CUSTOM/aliases.zsh
+# - $ZSH_CUSTOM/macos.zsh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
@@ -102,13 +108,26 @@ source $ZSH/oh-my-zsh.sh
 
 alias ls='ls --color=auto -halt'
 
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+
+# add snaps to PATH
+if [ -d "/snap/bin" ] ; then
+    PATH="/snap/bin:$PATH"
+fi
+
 # setup nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-. "$HOME/.cargo/env"
 
-if [ "${TERM_PROGRAM}" != "vscode" ]
-then
-  cd ${HOME}/workspace
-fi
+export FLYCTL_INSTALL="/home/roudy/.fly"
+export FLY_ACCESS_TOKEN="<fly-access-token>"
+export PATH="${FLYCTL_INSTALL}/bin:${PATH}"
